@@ -41,9 +41,8 @@ and also the profoundly intertextual circulatory systems in which they sit.
 https://kitab-project.org/about/
 """
 
-# description of the OpenITI and KITAB projects:
-# NB: use : `project_descr_en.format(**row_dict)`
-project_descr_en = """
+# TO DO:`translate into Arabic:
+project_descr_ar = """
 The Open Islamicate Texts Initiative (OpenITI) is a multi-institutional effort
 led by researchers at the Aga Khan University’s Institute for the Study of Muslim Civilisations in London,
 Roshan Institute for Persian Studies at the University of Maryland, College Park,
@@ -71,7 +70,8 @@ and also the profoundly intertextual circulatory systems in which they sit.
 https://kitab-project.org/about/
 """
 
-# TO DO: translate into Arabic!
+# description of the single objects: 
+# NB: use : `project_descr_en.format(**row_dict)
 obj_descr_en = """
 Author: {author_lat}
 
