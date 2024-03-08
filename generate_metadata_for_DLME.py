@@ -18,6 +18,7 @@ one2all_data_url = kitab_url+"one_to_all/v%s/msdata/%s_{}_all.csv" % (release, r
 one2all_stats_url = kitab_url+"one_to_all/v%s/stats/%s_{}_stats.csv" % (release, release)
 one2all_vis_url = "https://kitab-project.org/explore/#/visualise/%s/?books={}" % release
 pairwise_data_url = "https://dev.kitab-project.org/%s-pairwise/{}/" % release
+thumbnail_url = kitab_url+"/reuse-thumbnails/main/thumbnails/{}.jpg"
 
 uncorrected_ocr_message = "WARNING: this is a text generated using OCR; it has not been post-corrected."
 
@@ -37,6 +38,7 @@ generated_keys = [
     "one2all_stats_url",
     "one2all_vis_url",
     "pairwise_data_url",
+    "thumbnail_url",
     "uncorrected_ocr",
     ]
 header = relevant_keys + generated_keys
@@ -67,6 +69,7 @@ def generate_metadata():
             row.append(one2all_stats_url.format(id_))
             row.append(one2all_vis_url.format(id_w_extension))
             row.append(pairwise_data_url.format(id_w_extension))
+            row.append(thumbnail_url.format(id_w_extension))
             if "UNCORRECTED_OCR" in d["tags"]:
                 row.append(uncorrected_ocr_message)
             else:
