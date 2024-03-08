@@ -86,6 +86,7 @@ Visualization of the overlap between the present text and the entire OpenITI cor
 
 Datasets documenting the overlap between the present text and a single other text (“pairwise”): {pairwise_data_url}
 
+
 For instructions on batch downloading all of the KITAB and OpenITI data, see %s
 
 {uncorrected_ocr}
@@ -111,4 +112,5 @@ obj_descr_ar = """
 للحصول على إرشادات حول تحميل كافة بيانات KITAB وOpenITI دفعة واحدة، راجع %s.
 
 {uncorrected_ocr}
-""" % release
+""" % (release, download_descr_url)
+print(obj_descr_ar)
