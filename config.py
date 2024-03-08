@@ -89,7 +89,7 @@ Datasets documenting the overlap between the present text and a single other tex
 
 For instructions on batch downloading all of the KITAB and OpenITI data, see %s
 
-{uncorrected_ocr}
+{uncorrected_ocr_en}
 """ % (release, download_descr_url)
 
 obj_descr_ar = """
@@ -111,6 +111,6 @@ obj_descr_ar = """
 
 للحصول على إرشادات حول تحميل كافة بيانات KITAB وOpenITI دفعة واحدة، راجع %s.
 
-{uncorrected_ocr}
+{uncorrected_ocr_ar}
 """ % (release, download_descr_url)
 print(obj_descr_ar)

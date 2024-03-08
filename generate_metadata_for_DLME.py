@@ -20,7 +20,9 @@ one2all_vis_url = "https://kitab-project.org/explore/#/visualise/%s/?books={}" %
 pairwise_data_url = "https://dev.kitab-project.org/%s-pairwise/{}/" % release
 thumbnail_url = kitab_url+"/reuse-thumbnails/main/thumbnails/{}.jpg"
 
-uncorrected_ocr_message = "WARNING: this is a text generated using OCR; it has not been post-corrected."
+uncorrected_ocr_message_en = "WARNING: this is a text generated using OCR; it has not been post-corrected."
+uncorrected_ocr_message_ar = "تحذير: هذا نص تم إنشاؤه باستخدام التعرف البصري على الأحرف؛ لم يتم تصحيحه لاحقًا."
+
 
 relevant_keys = [
     'version_uri',
@@ -39,7 +41,8 @@ generated_keys = [
     "one2all_vis_url",
     "pairwise_data_url",
     "thumbnail_url",
-    "uncorrected_ocr",
+    "uncorrected_ocr_en",
+    "uncorrected_ocr_ar",
     ]
 header = relevant_keys + generated_keys
 
@@ -71,8 +74,10 @@ def generate_metadata():
             row.append(pairwise_data_url.format(id_w_extension))
             row.append(thumbnail_url.format(id_w_extension))
             if "UNCORRECTED_OCR" in d["tags"]:
-                row.append(uncorrected_ocr_message)
+                row.append(uncorrected_ocr_message_en)
+                row.append(uncorrected_ocr_message_ar)
             else:
+                row.append("")
                 row.append("")
 
             # do not include files that are not public:
