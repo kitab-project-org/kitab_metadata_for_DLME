@@ -1,13 +1,20 @@
 """
 Prepare metadata for ingestion into the DLME
 (Digital Library of the Middle East)
+
+and generate the config.yml template
 """
 
 import re
 import csv
+import yaml  # pip install pyyaml
 
 
-release = "2023.1.8"
+
+with open("config_template.yml", mode="r", encoding="utf-8") as file:
+    config_d = yaml.safe_load(file)
+
+release = config_d["release"]
 infp = "../../kitab-metadata-automation/releases/OpenITI_metadata_2023-1-8.csv"
 outfp = "kitab_metadata_for_DLME_latest_release.tsv"
 
@@ -91,5 +98,44 @@ def generate_metadata():
     with open(outfp, mode="w", encoding="utf-8") as file:
         file.write("\n".join(new_csv))
 
+def generate_config_yaml(config_d, splitter="# PROJECT DESCRIPTION #"):
+    """Generate the config.yml file from the config_template.yml file.
+
+    Args:
+        config_d (dict): configuration dictionary,
+            loaded from config_template.yml
+        splitter (str): to split the yml header from its body
+    """
+    with open("config_template.yml", mode="r", encoding="utf-8") as file:
+        yml_s = file.read()
+
+    # split off the header
+    # in order not to replace the placeholder strings there:
+    head, body = yml_s.split(splitter)
+
+    # replace placeholders in the template config file
+    # with the relevant variables:
+    for k, v in config_d["placeholder_strings"].items():
+        body = re.sub(k, config_d[v], body)
+
+
+    # add a warning at the top of the config file:
+    warning = """\
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# IMPORTANT: This config file was created by the
+# `generate_metadata_for_DLME.py` script.
+# DO NOT MANUALLY CHANGE THIS CONFIG FILE.
+# Make any changes in the `config_template.yml` file
+# and re-run the `generate_metadata_for_DLME` script.
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#
+"""
+    yml_s = warning + head + splitter + body
+
+    # write the new yaml file:
+    with open("config.yml", mode="w", encoding="utf-8") as file:
+        file.write(yml_s)
+
 if __name__ == "__main__":
     generate_metadata()
+    generate_config_yaml(config_d)
