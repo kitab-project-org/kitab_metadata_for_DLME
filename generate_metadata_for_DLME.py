@@ -141,7 +141,6 @@ def generate_config_yaml(config_d, splitter="# PROJECT DESCRIPTION #"):
 
     # insert <br/> tags for new lines in descriptions:
     body = re.sub("\n( *)\n", r"<br/>\n\1\n", body)
-    print(repr(body))
 
     # add a warning at the top of the config file:
     warning = """\
