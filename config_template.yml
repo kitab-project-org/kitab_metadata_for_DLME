@@ -1,6 +1,7 @@
 # Configuration data for loading the OpenITI/KITAB metadata into the DLME.
 #
 release: 2023.1.8
+release_meta: https://github.com/OpenITI/kitab-metadata-automation/raw/master/releases/OpenITI_metadata_2023-1-8.csv
 license: Creative Commons Attribution Non Commercial Share Alike 4.0 International
 # URL for instructions on how to batch download all OpenITI and KITAB data:
 download_descr_url: https://kitab-project.org/data/download
