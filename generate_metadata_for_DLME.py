@@ -1,22 +1,28 @@
 """
 Prepare metadata for ingestion into the DLME
 (Digital Library of the Middle East)
+and generate the config.yml file from the config_template.yml.
 
-and generate the config.yml template
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Before running this script, make sure the config_template.yml is updated
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 """
 
 import re
 import csv
 import yaml  # pip install pyyaml
+import requests
+import os
 
-
+outfp = "kitab_metadata_for_DLME_latest_release.tsv"
 
 with open("config_template.yml", mode="r", encoding="utf-8") as file:
     config_d = yaml.safe_load(file)
 
+# generate some global variables:
+
 release = config_d["release"]
-infp = "../../kitab-metadata-automation/releases/OpenITI_metadata_2023-1-8.csv"
-outfp = "kitab_metadata_for_DLME_latest_release.tsv"
 
 gh_url = "https://raw.githubusercontent.com/"
 kitab_url = gh_url + "kitab-project-org/"
@@ -53,13 +59,25 @@ generated_keys = [
     ]
 header = relevant_keys + generated_keys
 
+def download_file(url, path):
+    r = requests.get(url)
+    with open(path, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=1024): 
+            if chunk:
+                f.write(chunk)    
 
-
-def generate_metadata():
+def generate_metadata(config_d):
+    # download the release metadata from GitHub:
+    print("downloading", config_d["release_meta"])
+    infp = "temp.tsv"
+    download_file(config_d["release_meta"], infp)
+    print("download finished. Start generating metadata file.")
+    
+    # generate the metadata tsv in the required format for the DLME:
     new_csv = ["\t".join(header), ]
     with open(infp, mode="r", encoding="utf-8") as file:
         data = csv.DictReader(file, delimiter="\t")
-        for i, d in enumerate(data):            
+        for i, d in enumerate(data):
             # include only primary version of each text:
             if d["status"] == "sec":
                 continue
@@ -95,6 +113,9 @@ def generate_metadata():
             # add the new row to the csv file:
             new_csv.append("\t".join(row))
 
+    # remove the temporary downloaded metadata file:
+    os.remove(infp)
+
     with open(outfp, mode="w", encoding="utf-8") as file:
         file.write("\n".join(new_csv))
 
@@ -118,9 +139,6 @@ def generate_config_yaml(config_d, splitter="# PROJECT DESCRIPTION #"):
     for k, v in config_d["placeholder_strings"].items():
         body = re.sub(k, config_d[v], body)
 
-    # insert <br/> tags for new lines in descriptions:
-    body = re.sub("\n\n", "<br/>\n\n", body)
-
     # add a warning at the top of the config file:
     warning = """\
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -139,5 +157,6 @@ def generate_config_yaml(config_d, splitter="# PROJECT DESCRIPTION #"):
         file.write(yml_s)
 
 if __name__ == "__main__":
-    generate_metadata()
+    
+    generate_metadata(config_d)
     generate_config_yaml(config_d)
