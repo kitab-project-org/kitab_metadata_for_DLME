@@ -99,6 +99,8 @@ obj_descr_en_html: |
   For instructions on batch downloading all of the KITAB and OpenITI data, see 
   https://kitab-project.org/data/download<br/>
   
+  The KITAB project was funded by the European Research Council (ERC).<br/>
+  
   %{uncorrected_ocr_en}
 obj_descr_ar_html: |
   المؤلف: %{author_ar}<br/>
