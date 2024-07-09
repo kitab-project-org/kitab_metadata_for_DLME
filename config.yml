@@ -27,7 +27,7 @@ placeholder_strings:
 #
 # Description of the OpenITI and KITAB projects:
 # if necessary, update the intro text from the OpenITI project website (https://openiti.org/about.html): 
-project_descr_en: |
+project_descr_en_html: |
   The Open Islamicate Texts Initiative (OpenITI) is a multi-institutional effort
   led by researchers at the Aga Khan University’s Institute for the Study of Muslim Civilisations in London,
   Roshan Institute for Persian Studies at the University of Maryland, College Park,
@@ -53,7 +53,7 @@ project_descr_en: |
   and also the profoundly intertextual circulatory systems in which they sit.<br/>
 
   https://kitab-project.org/about/
-project_descr_ar: |
+project_descr_ar_html: |
   مبادرة النصوص الإسلامية المفتوحة (OpenITI) هي جهد متعدد المؤسسات يقوده باحثون في معهد جامعة الآغا خان لدراسة الحضارات الإسلامية في لندن، ومعهد روشان للدراسات الفارسية في جامعة ميريلاند، كوليدج بارك، وجامعة هامبورغ. يهدف إلى تطوير البنية التحتية الرقمية لدراسة الثقافات الإسلامية.<br/>
   
   منذ تأسيسها في عام 2016، ركز عمل OpenITI على المهام الضرورية لبناء القدرات الرقمية في الدراسات الإسلامية، بما في ذلك تحسين التعرف البصري على الأحرف (OCR) العربية والتعرف على خط اليد  (HTR) العربي، وتطوير معايير متينة لل (OCR) وال (HTR) للخط العربي، ولإخراجاتهما ولتكويد النص، وإنشاء منصات للإنتاج التعاوني لمجموعات نصوص إسلامية وللتحقيق الرقمي.<br/>
@@ -73,7 +73,7 @@ project_descr_ar: |
 # Template for the description of each object (row in the tsv file).
 # NB: use : `obj_descr_en % row_dict` in Ruby 
 # to insert the data from the tsv file in the description:
-obj_descr_en: |
+obj_descr_en_html: |
   Author: %{author_lat}<br/>
   
   Machine-readable text and text reuse datasets (from OpenITI release 2023.1.8).<br/>
@@ -100,7 +100,7 @@ obj_descr_en: |
   https://kitab-project.org/data/download<br/>
   
   %{uncorrected_ocr_en}
-obj_descr_ar: |
+obj_descr_ar_html: |
   المؤلف: %{author_ar}<br/>
   
   نص يمكن قراءته آليًا وبيانات إعادة استخدام النص (من إصدار OpenITI 2023.1.8).<br/>

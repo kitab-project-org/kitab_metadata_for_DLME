@@ -142,6 +142,11 @@ def generate_config_yaml(config_d, splitter="# PROJECT DESCRIPTION #"):
     # insert <br/> tags for new lines in descriptions:
     body = re.sub("\n( *)\n", r"<br/>\n\1\n", body)
 
+    # add "_html" suffix to the descr_en and descr_ar keys
+    # so that Ruby doesn't strip out the html tags
+    # (see https://stackoverflow.com/a/39658561):
+    body = re.sub(r"descr_(ar|en):", r"descr_\1_html:", body)
+
     # add a warning at the top of the config file:
     warning = """\
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
